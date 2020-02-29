@@ -14,16 +14,15 @@
 <input type="file" id="fileBtn" capture="camera" onchange="handleFiles(this.files)" accept="image/*">
 
 <script type="text/javascript">
-qrcode.callback = function(a){document.getElementById("scanResult").value=a;};
-
 function handleFiles(f)
 {
     var reader = new FileReader();
-    reader.onload = (function(theFile) {
+    reader.onload = (function(e) {
 		return function(e) {
 			qrcode.decode(e.target.result);
 		};
     })(f[0]);
+    qrcode.callback = function(a){document.getElementById("scanResult").value=a;};
     reader.readAsDataURL(f[0]);
 }
 </script>
