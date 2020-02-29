@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="language" content="English">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
+<title>识别二维码</title>
+<script type="text/javascript" src="./qr/llqrcode.js"></script>
+</head>
+
+<body>
+
+<input type="text" id="scanResult" style="width:100%">
+<input type="file" id="fileBtn" capture="camera" onchange="handleFiles(this.files)" accept="image/*">
+
+<script type="text/javascript">
+qrcode.callback = function(a){document.getElementById("scanResult").value=a;};
+
+function handleFiles(f)
+{
+    var reader = new FileReader();
+    reader.onload = (function(theFile) {
+		return function(e) {
+			qrcode.decode(e.target.result);
+		};
+    })(f[0]);
+    reader.readAsDataURL(f[0]);
+}
+</script>
+</body>
+</html>
